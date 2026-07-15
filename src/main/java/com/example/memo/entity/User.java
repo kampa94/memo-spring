@@ -1,7 +1,15 @@
 package com.example.memo.entity;
 
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User
 {
-    public User(long l, String francesco, String mail, String hashedpwd) {
-    }
+    private long id;
+    private String name;
+    private String mail;
+    private String hashedpwd;
+
 }
