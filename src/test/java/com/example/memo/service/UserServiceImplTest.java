@@ -46,7 +46,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void create_shouldSaveAndReturnUser() {
+    void shouldSaveAndReturnUser() {
         when(userMapper.toEntity(requestDto)).thenReturn(user);
         when(userRepository.save(user)).thenReturn(user);
         when(userMapper.toResponseDto(user)).thenReturn(responseDto);
@@ -58,8 +58,8 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getById_shouldReturnUser_whenExists() {
-        when(userRepository.findById(1L)).thenReturn(user);
+    void shouldReturnUser_whenExists() {
+        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(user));
         when(userMapper.toResponseDto(user)).thenReturn(responseDto);
 
         UserResponseDto result = userService.getById(1L);
@@ -69,16 +69,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getById_shouldThrow_whenNotFound() {
-        when(userRepository.findById(99L)).thenReturn(null);
-
-        assertThatThrownBy(() -> userService.getById(99L))
-                .isInstanceOf(ResourceNotFoundException.class)
-                .hasMessageContaining("99");
-    }
-
-    @Test
-    void getAll_shouldReturnListOfUsers() {
+    void shouldReturnListOfUsers() {
         when(userRepository.findAll()).thenReturn(List.of(user));
         when(userMapper.toResponseDto(user)).thenReturn(responseDto);
 

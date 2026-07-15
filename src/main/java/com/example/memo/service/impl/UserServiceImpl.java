@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserResponseDto getById(long l) {
-        User user = (User) userRepository.findById(l);
+        User user = userRepository.findById(l).orElse(null);
         return userMapper.toResponseDto(user);
     }
 
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto update(User user) {
-        User updatedUser = userRepository.update(user);
+        User updatedUser = userRepository.save(user);
         return userMapper.toResponseDto(updatedUser);
     }
 
