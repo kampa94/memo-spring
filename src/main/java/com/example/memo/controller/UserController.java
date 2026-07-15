@@ -5,6 +5,8 @@ import com.example.memo.entity.User;
 import com.example.memo.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -18,5 +20,9 @@ public class UserController {
     @GetMapping("/{id}")
     public UserResponseDto getById(@PathVariable Long id) {
         return userService.getById(id);
+    }
+    @GetMapping
+    public List<UserResponseDto> getAll() {
+        return userService.getAll();
     }
 }

@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -41,5 +43,13 @@ public class UserControllerTest {
         UserResponseDto risultato = userController.getById(1L);
         assertThat(risultato.getId()).isEqualTo(1L);
         assertThat(risultato.getNome()).isEqualTo("Francesco");
+    }
+    @Test
+    void shouldGetAllUsers() {
+        when(userService.getAll()).thenReturn(List.of(responseDto));
+        List<UserResponseDto> risultato = userController.getAll();
+        assertThat(risultato).hasSize(1);
+        assertThat(risultato.get(0).getId()).isEqualTo(1L);
+        assertThat(risultato.get(0).getNome()).isEqualTo("Francesco");
     }
 }
