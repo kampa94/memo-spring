@@ -33,12 +33,12 @@ public class UserController {
     }
 
     @PatchMapping
-    public UserResponseDto update(@RequestBody User user) {
+    public UserResponseDto update(@RequestBody UserRequestDto user) {
         return userService.update(user);
     }
 
     @DeleteMapping
-    public void delete(@RequestBody User user) {
+    public void delete(@RequestBody UserRequestDto user) {
         userService.delete(user);
     }
 }

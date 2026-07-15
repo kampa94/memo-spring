@@ -10,6 +10,6 @@ public interface UserService {
     UserResponseDto create(UserRequestDto requestDto);
     UserResponseDto getById(long id);
     List<UserResponseDto> getAll();
-    UserResponseDto update(User user);
-    void delete(User user);
+    UserResponseDto update(UserRequestDto user);
+    void delete(UserRequestDto user);
 }

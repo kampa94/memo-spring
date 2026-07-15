@@ -42,13 +42,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto update(User user) {
-        User updatedUser = userRepository.save(user);
-        return userMapper.toResponseDto(updatedUser);
+    public UserResponseDto update(UserRequestDto userRequestDto) {
+        User user = userMapper.toEntity(userRequestDto);
+        User savedUser = userRepository.save(user);
+        return userMapper.toResponseDto(savedUser);
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(UserRequestDto userRequestDto) {
+        User user = userMapper.toEntity(userRequestDto);
         userRepository.delete(user);
     }
 }
