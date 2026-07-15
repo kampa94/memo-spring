@@ -40,4 +40,15 @@ public class UserServiceImpl implements UserService {
                 .map(user -> userMapper.toResponseDto(user))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public UserResponseDto update(User user) {
+        User updatedUser = userRepository.update(user);
+        return userMapper.toResponseDto(updatedUser);
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
 }

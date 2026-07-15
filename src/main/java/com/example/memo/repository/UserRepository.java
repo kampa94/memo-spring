@@ -18,4 +18,12 @@ public class UserRepository {
     public List<User> findAll() {
         return null;
     }
+
+    public void delete(User user) {
+
+    }
+
+    public User update(User user) {
+        return null;
+    }
 }

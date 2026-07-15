@@ -1,5 +1,6 @@
 package com.example.memo.controller;
 
+import com.example.memo.dto.request.UserRequestDto;
 import com.example.memo.dto.response.UserResponseDto;
 import com.example.memo.entity.User;
 import com.example.memo.service.UserService;
@@ -24,5 +25,20 @@ public class UserController {
     @GetMapping
     public List<UserResponseDto> getAll() {
         return userService.getAll();
+    }
+
+    @PostMapping
+    public UserResponseDto create(@RequestBody UserRequestDto user) {
+        return userService.create(user);
+    }
+
+    @PatchMapping
+    public UserResponseDto update(@RequestBody User user) {
+        return userService.update(user);
+    }
+
+    @DeleteMapping
+    public void delete(@RequestBody User user) {
+        userService.delete(user);
     }
 }
