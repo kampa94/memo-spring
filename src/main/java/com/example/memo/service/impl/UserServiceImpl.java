@@ -9,6 +9,7 @@ import com.example.memo.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,10 +29,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserResponseDto getById(long l) {
-        return null;
+        User user = (User) userRepository.findById(l);
+        return userMapper.toResponseDto(user);
     }
 
     public List<UserResponseDto> getAll() {
-        return null;
+        List<User> users = userRepository.findAll();
+        return users
+                .stream()
+                .map(user -> userMapper.toResponseDto(user))
+                .collect(Collectors.toList());
     }
 }

@@ -2,9 +2,9 @@ package com.example.memo.service;
 
 import com.example.memo.dto.request.UserRequestDto;
 import com.example.memo.dto.response.UserResponseDto;
+import com.example.memo.entity.User;
 import com.example.memo.exception.ResourceNotFoundException;
 import com.example.memo.mapper.UserMapper;
-import com.example.memo.entity.User;
 import com.example.memo.repository.UserRepository;
 import com.example.memo.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -58,7 +59,7 @@ class UserServiceImplTest {
 
     @Test
     void getById_shouldReturnUser_whenExists() {
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(userRepository.findById(1L)).thenReturn(user);
         when(userMapper.toResponseDto(user)).thenReturn(responseDto);
 
         UserResponseDto result = userService.getById(1L);
@@ -69,7 +70,7 @@ class UserServiceImplTest {
 
     @Test
     void getById_shouldThrow_whenNotFound() {
-        when(userRepository.findById(99L)).thenReturn(Optional.empty());
+        when(userRepository.findById(99L)).thenReturn(null);
 
         assertThatThrownBy(() -> userService.getById(99L))
                 .isInstanceOf(ResourceNotFoundException.class)
