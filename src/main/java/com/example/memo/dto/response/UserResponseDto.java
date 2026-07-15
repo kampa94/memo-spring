@@ -1,14 +1,14 @@
 package com.example.memo.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class UserResponseDto {
-    public UserResponseDto(long l, String francesco, String mail) {
-    }
-
-    public boolean id() {
-        return false;
-    }
-
-    public boolean email() {
-        return false;
-    }
+    private Long id;
+    private String nome;
+    private String email;
 }

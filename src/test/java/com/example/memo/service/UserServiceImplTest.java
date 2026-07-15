@@ -64,8 +64,8 @@ class UserServiceImplTest {
 
         UserResponseDto result = userService.getById(1L);
 
-        assertThat(result.id()).isEqualTo(1L);
-        assertThat(result.email()).isEqualTo("francesco@test.com");
+        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getEmail()).isEqualTo("francesco@test.com");
     }
 
     @Test
