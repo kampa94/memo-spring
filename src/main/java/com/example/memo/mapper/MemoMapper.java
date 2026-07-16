@@ -21,11 +21,11 @@ public class MemoMapper {
         if (memo == null) {
             return null;
         }
-        MemoResponseDto dto = new MemoResponseDto(
+        return new MemoResponseDto(
                 memo.getId(),
                 memo.getTitle(),
                 memo.getContent()
         );
-        return dto;
+
     }
 }

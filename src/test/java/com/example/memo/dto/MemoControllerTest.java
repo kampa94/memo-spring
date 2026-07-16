@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class MemoControllerTest {
+class MemoControllerTest {
 
     @InjectMocks
     private MemoController memoController;
@@ -33,13 +33,13 @@ public class MemoControllerTest {
 
     @BeforeEach
     void setUp() {
-        memo = new Memo();
-        requestDto = MemoRequestDto.builder()
+        this.memo = new Memo();
+        this.requestDto = MemoRequestDto.builder()
                 .id(1L)
                 .title("Titolo")
                 .content("Contenuto")
                 .build();
-        responseDto = MemoResponseDto.builder()
+        this.responseDto = MemoResponseDto.builder()
                 .id(1L)
                 .title("Titolo")
                 .content("Contenuto")
@@ -48,7 +48,7 @@ public class MemoControllerTest {
 
     @Test
     void shouldGetMemo() {
-        Mockito.when(memoService.getById(1L)).thenReturn(responseDto);
+        when(memoService.getById(1L)).thenReturn(responseDto);
         MemoResponseDto result = memoController.getById(1L);
         assertThat(result.getId()).isEqualTo(1L);
         assertThat(result.getTitle()).isEqualTo("Titolo");
@@ -56,7 +56,7 @@ public class MemoControllerTest {
 
     @Test
     void shouldGetAllMemos() {
-        Mockito.when(memoService.getAll()).thenReturn(List.of(responseDto));
+        when(memoService.getAll()).thenReturn(List.of(responseDto));
         List<MemoResponseDto> result = memoController.getAll();
         Assertions.assertThat(result).hasSize(1);
         assertThat(result.get(0).getId()).isEqualTo(1L);
@@ -67,9 +67,9 @@ public class MemoControllerTest {
     void shouldUpdateMemo() {
         var newRequestDto = new MemoRequestDto();
         var newResponseDto = new MemoResponseDto();
-        Mockito.when(memoService.update(newRequestDto)).thenReturn(newResponseDto);
+        when(memoService.update(newRequestDto)).thenReturn(newResponseDto);
         MemoController result = memoController.update(newRequestDto);
-        assertThat(result.getById(1L)).isEqualTo(1L);
-        assertThat(result.getTitle()).isEqualTo("Titolo2");
+        assertThat(result.getById(1L).getId()).isEqualTo(1L);
+        assertThat(result.getById(1L).getTitle()).isEqualTo("Titolo2");
     }
 }

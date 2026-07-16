@@ -33,16 +33,27 @@ public class MemoServiceImpl implements MemoService {
 
     @Override
     public List<MemoResponseDto> getAll() {
-        return List.of();
+        return memoRepository.findAll().stream()
+                .map(memoMapper::toResponseDto)
+                .toList();
     }
 
     @Override
-    public MemoResponseDto update(MemoRequestDto user) {
-        return null;
+    public MemoResponseDto update(MemoRequestDto memoRequestDto) {
+        var memo = memoRepository.findById(memoRequestDto.getId()).orElse(null);
+        if (memo == null) {
+            return null;
+        }
+        var savedMemo = memoRepository.save(memo);
+        return memoMapper.toResponseDto(savedMemo);
     }
 
     @Override
-    public void delete(MemoRequestDto user) {
-
+    public void delete(MemoRequestDto memoRequestDto) {
+        var memo = memoRepository.findById(memoRequestDto.getId()).orElse(null);
+        if (memo == null) {
+            return;
+        }
+        memoRepository.delete(memo);
     }
 }
