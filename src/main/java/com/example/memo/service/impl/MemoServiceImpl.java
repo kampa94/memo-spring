@@ -2,6 +2,8 @@ package com.example.memo.service.impl;
 
 import com.example.memo.dto.request.MemoRequestDto;
 import com.example.memo.dto.response.MemoResponseDto;
+import com.example.memo.mapper.MemoMapper;
+import com.example.memo.repository.MemoRepository;
 import com.example.memo.service.MemoService;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,13 @@ import java.util.List;
 
 @Service
 public class MemoServiceImpl implements MemoService {
+    private MemoMapper memoMapper;
+    private MemoRepository memoRepository;
+
+    public MemoServiceImpl(MemoMapper memoMapper, MemoRepository memoRepository) {
+        this.memoMapper = memoMapper;
+        this.memoRepository = memoRepository;
+    }
 
     @Override
     public MemoResponseDto create(MemoRequestDto requestDto) {
@@ -17,7 +26,9 @@ public class MemoServiceImpl implements MemoService {
 
     @Override
     public MemoResponseDto getById(long id) {
-        return null;
+        return memoRepository.findById(id)
+                .map(memoMapper::toResponseDto)
+                .orElse(null);
     }
 
     @Override

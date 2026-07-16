@@ -34,8 +34,16 @@ public class MemoControllerTest {
     @BeforeEach
     void setUp() {
         memo = new Memo();
-        requestDto = new MemoRequestDto();
-        responseDto = new MemoResponseDto();
+        requestDto = MemoRequestDto.builder()
+                .id(1L)
+                .title("Titolo")
+                .content("Contenuto")
+                .build();
+        responseDto = MemoResponseDto.builder()
+                .id(1L)
+                .title("Titolo")
+                .content("Contenuto")
+                .build();
     }
 
     @Test
@@ -45,6 +53,7 @@ public class MemoControllerTest {
         assertThat(result.getId()).isEqualTo(1L);
         assertThat(result.getTitle()).isEqualTo("Titolo");
     }
+
     @Test
     void shouldGetAllMemos() {
         Mockito.when(memoService.getAll()).thenReturn(List.of(responseDto));
@@ -58,7 +67,7 @@ public class MemoControllerTest {
     void shouldUpdateMemo() {
         var newRequestDto = new MemoRequestDto();
         var newResponseDto = new MemoResponseDto();
-        Mockito.when(memoService.update( newRequestDto)).thenReturn(newResponseDto);
+        Mockito.when(memoService.update(newRequestDto)).thenReturn(newResponseDto);
         MemoController result = memoController.update(newRequestDto);
         assertThat(result.getById(1L)).isEqualTo(1L);
         assertThat(result.getTitle()).isEqualTo("Titolo2");
